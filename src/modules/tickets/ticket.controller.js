@@ -19,5 +19,23 @@ const getTickets = async(req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
-
-module.exports = { createTicket, getTickets }; // Export functions
+const updateTicket = async(req, res) => {
+    try {
+        const updatedTicket = await ticketService.updateTicket(
+            req.params.id,
+            req.body
+        );
+        res.status(200).json(updatedTicket);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+const deleteTicket = async(req, res) => {
+    try {
+        await ticketService.deleteTicket(req.params.id);
+        res.status(200).json({ message: "Ticket deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+module.exports = { createTicket, getTickets, updateTicket, deleteTicket };

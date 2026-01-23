@@ -10,5 +10,15 @@ const createTicket = async(data) => {
 const getAllTickets = async() => {
     return await Ticket.find(); // Return all tickets
 };
-
-module.exports = { createTicket, getAllTickets }; // Export functions
+const updateTicket = async(id, data) => {
+    return await Ticket.findByIdAndUpdate(id, data, { new: true });
+};
+const deleteTicket = async(id) => {
+    return await Ticket.findByIdAndDelete(id);
+};
+module.exports = {
+    createTicket,
+    getAllTickets,
+    updateTicket,
+    deleteTicket
+};

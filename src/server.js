@@ -11,6 +11,10 @@ app.use(express.json());
 const ticketRoutes = require('./modules/tickets/ticket.routes');
 app.use('/api/tickets', ticketRoutes);
 
+const authRoutes = require('./modules/auth/auth.routes');
+app.use('/auth', authRoutes);
+
+
 // Test route
 app.get('/', (req, res) => {
     res.send('Backend is running!');
