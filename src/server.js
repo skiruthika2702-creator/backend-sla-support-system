@@ -11,8 +11,13 @@ app.use(express.json());
 const ticketRoutes = require('./modules/tickets/ticket.routes');
 app.use('/api/tickets', ticketRoutes);
 
+const userRoutes = require('./modules/users/user.routes');
+app.use('/api/users', userRoutes);
+
+
 const authRoutes = require('./modules/auth/auth.routes');
 app.use('/auth', authRoutes);
+
 
 
 // Test route
