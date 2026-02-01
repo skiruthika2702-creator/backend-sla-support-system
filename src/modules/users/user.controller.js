@@ -11,7 +11,21 @@ const register = async(req, res) => {
         res.status(400).json({ message: err.message });
     }
 };
+const login = async(req, res) => {
+    try {
+        const data = await userService.loginUser(req.body);
+        res.status(200).json({
+            message: 'Login successful',
+            token: data.token,
+            user: data.user
+        });
+    } catch (err) {
+        res.status(401).json({ message: err.message });
+    }
+};
+
 
 module.exports = {
-    register
+    register,
+    login
 };

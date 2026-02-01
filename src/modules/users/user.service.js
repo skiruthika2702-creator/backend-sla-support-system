@@ -22,7 +22,39 @@ const registerUser = async(userData) => {
 
     return user;
 };
+const jwt = require('jsonwebtoken');
+
+const loginUser = async(userData) => {
+    const { email, password } = userData;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new Error('Invalid email or password');
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        throw new Error('Invalid email or password');
+    }
+
+    const token = jwt.sign({ id: user._id, role: user.role },
+        process.env.JWT_SECRET, { expiresIn: '1d' }
+    );
+
+    return {
+        token,
+        user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+        }
+    };
+};
+
+
 
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 };
